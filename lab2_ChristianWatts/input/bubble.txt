@@ -1,0 +1,32 @@
+.text
+main:
+    lui   x8, 0x10010
+    addi  x10, x0, 0
+outer_loop:
+    addi  x19, x0, 9
+    bge   x10, x19, done_sort
+    addi  x11, x0, 0
+    sub   x16, x19, x10
+inner_loop:
+    bge   x11, x16, outer_next
+    slli  x14, x11, 2
+    add   x14, x8, x14
+    lw    x12, 0(x14)
+    addi  x17, x11, 1
+    slli  x15, x17, 2
+    add   x15, x8, x15
+    lw    x13, 0(x15)
+    slt   x9, x13, x12
+    beq   x9, x0, skip_swap
+    sw    x13, 0(x14)
+    sw    x12, 0(x15)
+skip_swap:
+    addi  x11, x11, 1
+    j     inner_loop
+outer_next:
+    addi  x10, x10, 1
+    j     outer_loop
+done_sort:
+    j     done_sort
+.data
+array:  .word 5,3,6,8,9,1,4,7,2,10

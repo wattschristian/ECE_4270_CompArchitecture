@@ -1,0 +1,17 @@
+.text
+main:
+    addi  x10, x0, 10   
+    addi  x11, x0, 0    
+    addi  x12, x0, 1    
+    addi  x13, x0, 2    
+
+fib_loop:
+    blt   x10, x13, fib_done   
+    add   x14, x11, x12        
+    add   x11, x12, x0         
+    add   x12, x14, x0         
+    addi  x13, x13, 1          
+    j     fib_loop             
+
+fib_done:
+    j     fib_done             
